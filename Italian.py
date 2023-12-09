@@ -30,13 +30,6 @@ st.sidebar.markdown('### English to Italian Translation')
 # User input
 user_input = st.text_area("Enter English text to translate:", "Your text here")
 
-st.title('Italian translator')
-st.markdown('Input the writing that you want to improve. \n\
-            The AI will provide English translation for you.')
-
-user_input = st.text_area("Enter some text to translate:", "Your text here")
-
-
 # Translate button
 if st.button('Translate'):
     # Add user input to conversation prompt
