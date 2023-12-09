@@ -1,5 +1,5 @@
 import streamlit as st
-import openai
+from openai import OpenAI
 import json
 import pandas as pd
 
@@ -9,15 +9,6 @@ openai.api_key = user_api_key
 prompt = "Translate the following English text to Italian:\n"
 
 def translate_to_italian(text):
-    response = openai.Completion.create(
-        engine="text-davinci-003",  # Use the appropriate engine
-        prompt=text,
-        max_tokens=20,  # Adjust as needed
-    )
-    return response['choices'][0]['text']
-
-'''
-def translate_to_italian(text):
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=[
@@ -26,7 +17,7 @@ def translate_to_italian(text):
         ],
     )
     return response['choices'][0]['message']['content']
-'''
+
 # Collect interesting words and create a table
 def collect_interesting_words(translations):
     words_data = []
