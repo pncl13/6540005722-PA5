@@ -5,17 +5,15 @@ import pandas as pd
 
 user_api_key = st.sidebar.text_input("OpenAI API key", type="password")
 
-client = openai(api_key=user_api_key)
+openai.api_key = user_api_key
 prompt = "Translate the following English text to Italian:\n"
 
 def translate_to_italian(text):
-    response = client.translate(
+    response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
-        prompt=text,
-        source_language="en",
-        target_language="it",
+        messages=[{"role": "system", "content": prompt}, {"role": "user", "content": text}],
     )
-    return response['choices'][0]['text']
+    return response['choices'][0]['message']['content']
 
 # Collect interesting words and create a table
 def collect_interesting_words(translations):
