@@ -7,11 +7,12 @@ user_api_key = st.sidebar.text_input("OpenAI API key", type="password")
 
 openai.api_key = user_api_key
 prompt = "Translate the following English text to Italian:\n"
+
 def translate_to_italian(text):
     response = openai.Completion.create(
         engine="text-davinci-003",  # Use the appropriate engine
         prompt=text,
-        max_tokens=50,  # Adjust as needed
+        max_tokens=20,  # Adjust as needed
     )
     return response['choices'][0]['text']
 
@@ -35,7 +36,7 @@ def collect_interesting_words(translations):
     return pd.DataFrame(words_data)
 
 # Web app
-st.title('Italian Translator and Word Collector')
+st.title('English-Italian Translator')
 st.sidebar.markdown('### English to Italian Translation')
 
 # User input
