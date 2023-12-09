@@ -1,11 +1,11 @@
 import streamlit as st
-from openai import OpenAI
+import openai
 import json
 import pandas as pd
 
 user_api_key = st.sidebar.text_input("OpenAI API key", type="password")
 
-client = OpenAI(api_key=user_api_key)
+client = openai(api_key=user_api_key)
 prompt = "Translate the following English text to Italian:\n"
 
 def translate_to_italian(text):
