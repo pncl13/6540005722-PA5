@@ -10,22 +10,15 @@ prompt = "Translate the following English text to Italian:\n"
 
 def translate_to_italian(text):
     response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        messages=[
-    {
-      "role": "system",
-      "content": "You will be provided with a sentence in English, and your task is to translate it into Italian."
-    },
-    {
-      "role": "user",
-      "content": "My name is Jane. What is yours?"
-    }
-  ],
-  temperature=0.7,
-  max_tokens=34,
-  top_p=1
-)
-    return response['choices'][0]['text'].strip()
+      model="gpt-3.5-turbo",
+      messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": "Good Evening!"},
+        {"role": "assistant", "content": "Buona sera!"},
+        {"role": "user", "content": "Where was it played?"}
+      ]
+    )
+    return response['choices'][0]['message']['content']
 
 # Collect interesting words and create a table
 def collect_interesting_words(translations):
