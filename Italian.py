@@ -3,30 +3,22 @@ import openai
 import json
 import pandas as pd
 
-# Set the OpenAI API key
-openai.api_key = st.sidebar.text_input("OpenAI API key", type="password")
+user_api_key = st.sidebar.text_input("OpenAI API key", type="password")
+
+openai.api_key = user_api_key
+prompt = "Translate the following English text to Italian:\n"
 
 def translate_to_italian(text):
-    # Create a conversation with the assistant
-    response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        messages=[
-            {"role": "system", "content": "You are a helpful assistant."},
-            {"role": "user", "content": f"Translate the following English text to Italian: {text}"}
-        ]
+    response = client.chat.completions.create(
+      model="gpt-3.5-turbo",
+      messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": "Good Evening!"},
+        {"role": "assistant", "content": "Buona sera!"},
+        {"role": "user", "content": "Where was it played?"}
+      ]
     )
-
-    # Return the assistant's reply
     return response['choices'][0]['message']['content']
-
-# Get user input
-user_input = st.text_input("Enter text to translate")
-
-# Translate the text
-translation = translate_to_italian(user_input)
-
-# Display the translation
-st.write(translation)
 
 # Collect interesting words and create a table
 def collect_interesting_words(translations):
@@ -45,10 +37,15 @@ user_input = st.text_area("Enter English text to translate:", "Your text here")
 
 # Translate button
 if st.button('Translate'):
-    # Translate the user input
-    translation = translate_to_italian(user_input)
-    # Display the translation
-    st.write(translation)
+    # Add user input to conversation prompt
+    prompt += f'User: {user_input}\n'
+
+    # Perform translation
+    italian_translation = translate_to_italian(prompt)
+
+    # Display translation
+    st.markdown('**Italian Translation:**')
+    st.write(italian_translation)
 
     # Collect interesting words
     translations = json.loads(italian_translation)
@@ -63,6 +60,10 @@ if st.button('Translate'):
     if csv_button:
         st.download_button(
             label="Download CSV",
+            data=words_df.to_csv(index=False, encoding='utf-8'),
+            file_name="interesting_words.csv",
+            key="csv_download",
+        )
             data=words_df.to_csv(index=False, encoding='utf-8'),
             file_name="interesting_words.csv",
             key="csv_download",
