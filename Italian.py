@@ -12,13 +12,11 @@ def translate_to_italian(text):
     response = openai.ChatCompletion.create(
       model="gpt-3.5-turbo",
       messages=[
-        {"role": "user", "content": "Good Evening!"},
-        {"role": "assistant", "content": "Buona sera!"},
-        {"role": "user", "content": "Thank you."},
-        {"role": "assistant", "content": "Grazie"},
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": f"Translate the following English text to Italian: {text}"}
       ]
     )
-    return response['choices'][0]['message']['content']
+    return response['choices'][0]['text'].strip()
 
 # Collect interesting words and create a table
 def collect_interesting_words(translations):
