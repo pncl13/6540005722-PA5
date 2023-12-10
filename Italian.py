@@ -14,7 +14,7 @@ def translate_to_italian(text):
       messages=[
         {"role": "system", "content": "You are a helpful translator."},
         {"role": "user", "content": "Good Evening!"},
-        {"role": "assistant", "content": "Buona sera!"},
+        {"role": "assistant", "content": "Buona sera!"}
       ]
     )
     return response['choices'][0]['message']['content']
