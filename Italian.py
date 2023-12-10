@@ -2,6 +2,7 @@ import streamlit as st
 import openai
 import json
 import pandas as pd
+pip install --upgrade openai
 
 user_api_key = st.sidebar.text_input("OpenAI API key", type="password")
 
