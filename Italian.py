@@ -64,7 +64,3 @@ if st.button('Translate'):
             file_name="interesting_words.csv",
             key="csv_download",
         )
-            data=words_df.to_csv(index=False, encoding='utf-8'),
-            file_name="interesting_words.csv",
-            key="csv_download",
-        )
