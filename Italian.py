@@ -1,8 +1,8 @@
 import streamlit as st
-import openai
+from openai import OpenAI
+client = OpenAI()
 import json
 import pandas as pd
-pip install --upgrade openai
 
 user_api_key = st.sidebar.text_input("OpenAI API key", type="password")
 
@@ -10,11 +10,22 @@ openai.api_key = user_api_key
 prompt = "Translate the following English text to Italian:\n"
 
 def translate_to_italian(text):
-    response = openai.Completion.create(
+    response = client.chat.completions.create(
         model="gpt-3.5-turbo",
-        prompt=f"Translate the following English text to Italian: {text}",
-        max_tokens=30
-    )
+        messages=[
+    {
+      "role": "system",
+      "content": "You will be provided with a sentence in English, and your task is to translate it into Italian."
+    },
+    {
+      "role": "user",
+      "content": "My name is Jane. What is yours?"
+    }
+  ],
+  temperature=0.7,
+  max_tokens=34,
+  top_p=1
+)
     return response['choices'][0]['text'].strip()
 
 # Collect interesting words and create a table
