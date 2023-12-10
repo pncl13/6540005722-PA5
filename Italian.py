@@ -9,12 +9,10 @@ openai.api_key = user_api_key
 prompt = "Translate the following English text to Italian:\n"
 
 def translate_to_italian(text):
-    response = openai.ChatCompletion.create(
-      model="gpt-3.5-turbo",
-      messages=[
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": f"Translate the following English text to Italian: {text}"}
-      ]
+    response = openai.Completion.create(
+        model="gpt-3.5-turbo",
+        prompt=f"Translate the following English text to Italian: {text}",
+        max_tokens=30
     )
     return response['choices'][0]['text'].strip()
 
