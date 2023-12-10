@@ -9,13 +9,14 @@ openai.api_key = user_api_key
 prompt = "Translate the following English text to Italian:\n"
 
 def translate_to_italian(text):
-    response = client.chat.completions.create(
+    response = openai.ChatCompletion.create(
       model="gpt-3.5-turbo",
       messages=[
         {"role": "system", "content": "You are a helpful assistant."},
         {"role": "user", "content": "Good Evening!"},
         {"role": "assistant", "content": "Buona sera!"},
-        {"role": "user", "content": "Where was it played?"}
+        {"role": "user", "content": "Thank you."},
+        {"role": "assistant", "content": "Grazie"},
       ]
     )
     return response['choices'][0]['message']['content']
@@ -30,7 +31,7 @@ def collect_interesting_words(translations):
 
 # Web app
 st.title('English-Italian Translator')
-st.sidebar.markdown('### English to Italian Translation')
+st.sidebar.markdown('### Enter your API key here')
 
 # User input
 user_input = st.text_area("Enter English text to translate:", "Your text here")
