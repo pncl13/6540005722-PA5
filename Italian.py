@@ -3,19 +3,20 @@ import openai
 import json
 import pandas as pd
 
-user_api_key = st.sidebar.text_input("OpenAI API key", type="password")
-
-openai.api_key = user_api_key
-prompt = "Translate the following English text to Italian:\n"
+# Set the OpenAI API key
+openai.api_key = st.sidebar.text_input("OpenAI API key", type="password")
 
 def translate_to_italian(text):
+    # Create a conversation with the assistant
     response = openai.ChatCompletion.create(
-      model="gpt-3.5-turbo",
-      messages=[
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": text}
-      ]
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": f"Translate the following English text to Italian: {text}"}
+        ]
     )
+
+    # Return the assistant's reply
     return response['choices'][0]['message']['content']
 
 # Get user input
