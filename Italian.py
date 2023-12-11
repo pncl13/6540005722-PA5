@@ -17,7 +17,7 @@ def translate_to_italian(text):
         {"role": "assistant", "content": "Buona sera!"}
       ]
     )
-    return response['choices'][0]['message']['content']
+    return response['choices'][0]['messages']['content']
 
 # Collect interesting words and create a table
 def collect_interesting_words(translations):
