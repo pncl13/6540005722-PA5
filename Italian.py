@@ -18,10 +18,13 @@ def translate_to_italian(text):
     return response['choices'][0]['message']['content']
 
 # Collect interesting words and create a table
-def collect_interesting_words(translations):
+def collect_interesting_words(translation):
     words_data = []
-    for eng_text, ita_text in translations.items():
-        words_data.append({'word': eng_text, 'translation': ita_text, 'example': ''})
+    words = translation.split()
+    for word in words:
+        word_translation = translate_to_italian(word)
+        example_sentence = translate_to_italian(f"Use the word '{word}' in a sentence.")
+        words_data.append({'word': word, 'translation': word_translation, 'example': example_sentence})
     return pd.DataFrame(words_data)
 
 # Web app
@@ -34,15 +37,13 @@ user_input = st.text_area("Enter English text to translate:", "Your text here")
 # Translate button
 if st.button('Translate'):
     italian_translation = translate_to_italian(user_input)
-    st.write(italian_translation)
 
     # Display translation
     st.markdown('**Italian Translation:**')
     st.write(italian_translation)
 
     # Collect interesting words
-    translations = json.loads(italian_translation)
-    words_df = collect_interesting_words(translations)
+    words_df = collect_interesting_words(user_input)
 
     # Display words in a table
     st.markdown('**Interesting Words:**')
