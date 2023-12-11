@@ -35,8 +35,8 @@ user_input = st.text_area("Enter English text to translate:", "Your text here")
 
 # Translate button
 if st.button('Translate'):
-    # Add user input to conversation prompt
-    prompt += f'User: {user_input}\n'
+    italian_translation = translate_to_italian(user_input)
+    st.write(italian_translation)
 
     # Perform translation
     italian_translation = translate_to_italian(prompt)
