@@ -22,7 +22,6 @@ def translate_to_italian(text):
 def collect_interesting_words(translations):
     words_data = []
     for eng_text, ita_text in translations.items():
-        # You may need to process eng_text and ita_text further based on your needs
         words_data.append({'word': eng_text, 'translation': ita_text, 'example': ''})
     return pd.DataFrame(words_data)
 
@@ -37,9 +36,6 @@ user_input = st.text_area("Enter English text to translate:", "Your text here")
 if st.button('Translate'):
     italian_translation = translate_to_italian(user_input)
     st.write(italian_translation)
-
-    # Perform translation
-    italian_translation = translate_to_italian(prompt)
 
     # Display translation
     st.markdown('**Italian Translation:**')
@@ -57,8 +53,8 @@ if st.button('Translate'):
     csv_button = st.button('Download as CSV')
     if csv_button:
         st.download_button(
-            label="Download CSV",
-            data=words_df.to_csv(index=False, encoding='utf-8'),
-            file_name="interesting_words.csv",
-            key="csv_download",
+            label= "Download CSV",
+            data= words_df.to_csv(index=False, encoding='utf-8'),
+            file_name= "interesting_words.csv",
+            key= "csv_download",
         )
