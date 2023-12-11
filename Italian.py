@@ -6,7 +6,6 @@ import pandas as pd
 user_api_key = st.sidebar.text_input("OpenAI API key", type="password")
 
 openai.api_key = user_api_key
-prompt = "Translate the following English text to Italian:\n"
 
 def translate_to_italian(text):
     response = openai.ChatCompletion.create(
