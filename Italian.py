@@ -13,11 +13,10 @@ def translate_to_italian(text):
       model="gpt-3.5-turbo",
       messages=[
         {"role": "system", "content": "You are a helpful translator."},
-        {"role": "user", "content": "Good Evening!"},
-        {"role": "assistant", "content": "Buona sera!"}
+        {"role": "user", "content": f"Translate the following English text to Italian: {text}"}
       ]
     )
-    return response['choices'][0]['messages']['content']
+    return response['choices'][0]['message']['content']
 
 # Collect interesting words and create a table
 def collect_interesting_words(translations):
